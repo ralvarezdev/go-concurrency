@@ -37,16 +37,16 @@ func (sn *SafeNumber) GetValue() int {
 	return sn.value
 }
 
-// GetValueAndIncrement returns the current value of the number and increments it by 1
-func (sn *SafeNumber) GetValueAndIncrement() int {
+// IncrementAndGetValue increments the number by 1 and returns the new value
+func (sn *SafeNumber) IncrementAndGetValue() int {
 	sn.mu.Lock()
 	defer sn.mu.Unlock()
 	sn.value++
 	return sn.value
 }
 
-// GetValueAndDecrement returns the current value of the number and decrements it by 1
-func (sn *SafeNumber) GetValueAndDecrement() int {
+// DecrementAndGetValue decrements the number by 1 and returns the new value
+func (sn *SafeNumber) DecrementAndGetValue() int {
 	sn.mu.Lock()
 	defer sn.mu.Unlock()
 	sn.value--
@@ -60,8 +60,8 @@ func (sn *SafeNumber) OperateValue(operation func(int) int) {
 	sn.value = operation(sn.value)
 }
 
-// GetAndOperateValue performs an operation on the value of the number and returns the result
-func (sn *SafeNumber) GetAndOperateValue(operation func(int) int) int {
+// OperateAndGetValue performs an operation on the value of the number and returns the result
+func (sn *SafeNumber) OperateAndGetValue(operation func(int) int) int {
 	sn.mu.Lock()
 	defer sn.mu.Unlock()
 	sn.value = operation(sn.value)
